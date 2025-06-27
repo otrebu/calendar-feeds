@@ -1,0 +1,29 @@
+{
+  "name": "calendar-feeds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/cli.ts",
+    "build": "tsup src/cli.ts --format esm,cjs --dts",
+    "generate": "node dist/cli.js --out team.ics",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.0.0",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "ical-generator": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.6",
+    "eslint": "^9.29.0",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
