@@ -13,7 +13,13 @@ const program = new Command()
 const { provider, out } = program.opts() as { provider: string; out: string };
 
 (async () => {
-  const events = await loadProvider(provider).getEvents();
-  writeFileSync(out, buildCalendar(events));
-  console.log(`\ud83d\udcc5  generated ${events.length} events \u2192 ${out}`);
+  try {
+    const eventProvider = loadProvider(provider);
+    const events = await eventProvider.getEvents();
+    writeFileSync(out, buildCalendar(events));
+    console.log(`📅  generated ${events.length} events → ${out}`);
+  } catch (error) {
+    console.error(`❌ Failed to generate calendar: ${error}`);
+    process.exit(1);
+  }
 })();
