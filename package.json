@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node src/cli.ts",
     "build": "tsup src/cli.ts --format esm,cjs --dts",
-    "generate": "node dist/cli.js --out team.ics",
+    "generate": "node dist/cli.js",
     "test": "vitest"
   },
   "keywords": [],
@@ -15,7 +15,11 @@
   "packageManager": "pnpm@9.0.0",
   "dependencies": {
     "commander": "^14.0.0",
-    "ical-generator": "^9.0.0"
+    "ical-generator": "^9.0.0",
+    "node-fetch": "^3.3.2",
+    "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.0.0",
+    "node-ical": "^0.20.1"
   },
   "devDependencies": {
     "@types/node": "^24.0.6",
