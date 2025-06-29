@@ -22,12 +22,14 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      - run: pnpm build && pnpm generate
+      - run: pnpm build && node dist/cli.js --provider tides
+        env:
+          STORM_TOKEN: ${{ secrets.STORM_TOKEN }}
 
       - name: Commit calendar
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add team.ics
+          git add tides.ics
           git commit -m "chore: update calendar" || echo "no changes"
           git push

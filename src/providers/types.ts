@@ -1,4 +1,4 @@
 import { ICalEventData } from "ical-generator";
 export interface EventProvider {
-  getEvents(): Promise<ICalEventData[]>;
+  getEvents(days?: number): Promise<ICalEventData[]>;
 }

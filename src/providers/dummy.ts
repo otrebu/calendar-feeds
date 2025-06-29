@@ -1,7 +1,7 @@
 import { EventProvider } from "./types";
 
 export const dummyProvider: EventProvider = {
-  async getEvents() {
+  async getEvents(_days?: number) {
     return [
       {
         id: "dummy-001",
