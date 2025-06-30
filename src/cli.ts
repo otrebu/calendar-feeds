@@ -27,7 +27,7 @@ const outFile = out ?? `${provider}.ics`;
     const seen = new Set(existing.map((e) => e.id));
     const fresh = events.filter((e) => !seen.has(e.id));
     const all = [...existing, ...fresh];
-    writeFileSync(outFile, buildCalendar(all, "Europe/Jersey"));
+    writeFileSync(outFile, buildCalendar(all, "Europe/Jersey", provider));
     console.log(`📅  added ${fresh.length} new events → ${outFile}`);
   } catch (error) {
     console.error(`❌ Failed to generate calendar: ${error}`);

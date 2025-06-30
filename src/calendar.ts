@@ -5,8 +5,9 @@ import * as nodeIcal from "node-ical";
 export function buildCalendar(
   events: ICalEventData[],
   timezone?: string,
+  name?: string,
 ): string {
-  const cal = ical({ name: "\u26bd Fixtures" });
+  const cal = ical({ name: name ?? "calendar" });
   if (timezone) cal.timezone(timezone);
   events.forEach((ev) => cal.createEvent(ev));
   return cal.toString();

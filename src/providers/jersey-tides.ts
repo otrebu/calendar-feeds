@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { addDays, addMinutes, startOfDay } from 'date-fns';
-import { toZonedTime, zonedTimeToUtc } from 'date-fns-tz';
+import { toZonedTime, fromZonedTime } from 'date-fns-tz';
 import { ICalEventData } from 'ical-generator';
 import { EventProvider } from './types';
 
@@ -21,8 +21,8 @@ export const jerseyTideProvider: EventProvider = {
     const nowLocal = toZonedTime(new Date(), TIMEZONE);
     const startLocal = startOfDay(nowLocal);
     const endLocal = addDays(startLocal, days);
-    const start = zonedTimeToUtc(startLocal, TIMEZONE);
-    const end = zonedTimeToUtc(endLocal, TIMEZONE);
+    const start = fromZonedTime(startLocal, TIMEZONE);
+    const end = fromZonedTime(endLocal, TIMEZONE);
     let url =
       `https://api.stormglass.io/v2/tide/extremes/point?lat=${LAT}&lng=${LNG}&start=${start.toISOString()}&end=${end.toISOString()}`;
     if (DATUM) url += `&datum=${encodeURIComponent(DATUM)}`;
