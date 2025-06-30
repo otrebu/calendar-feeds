@@ -12,6 +12,10 @@ provider adds **6.03 m** to each height value. You can request a different dat
 (for example `MLLW` or `LAT`) by passing the `datum` parameter. The provider
 reads this from the `STORM_DATUM` environment variable and includes it in the
 API call when set.
+Run `node dist/cli.js --provider tides` to generate the file. Add the
+`--nuke` option to ignore any existing calendar and recreate it from
+scratch (the GitHub workflow uses this by default).
+
 Subscribe to the latest feed:
 
 ```
