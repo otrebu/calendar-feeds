@@ -1,12 +1,13 @@
 import fetch from 'node-fetch';
-import { addDays, addMinutes } from 'date-fns';
-import { toZonedTime } from 'date-fns-tz';
+import { addDays, addMinutes, startOfDay } from 'date-fns';
+import { toZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { ICalEventData } from 'ical-generator';
 import { EventProvider } from './types';
 
 const LAT = 49.18;
 const LNG = -2.11;
 const TIMEZONE = 'Europe/Jersey';
+const DATUM = process.env.STORM_DATUM;
 
 interface TideExtreme {
   time: string;
@@ -16,10 +17,15 @@ interface TideExtreme {
 
 export const jerseyTideProvider: EventProvider = {
   async getEvents(days = 7): Promise<ICalEventData[]> {
-    const start = new Date();
-    const end = addDays(start, days);
-    const url =
+    // Align range to full local days so that each day contains four tide times
+    const nowLocal = toZonedTime(new Date(), TIMEZONE);
+    const startLocal = startOfDay(nowLocal);
+    const endLocal = addDays(startLocal, days);
+    const start = zonedTimeToUtc(startLocal, TIMEZONE);
+    const end = zonedTimeToUtc(endLocal, TIMEZONE);
+    let url =
       `https://api.stormglass.io/v2/tide/extremes/point?lat=${LAT}&lng=${LNG}&start=${start.toISOString()}&end=${end.toISOString()}`;
+    if (DATUM) url += `&datum=${encodeURIComponent(DATUM)}`;
 
     const res = await fetch(url, {
       headers: { Authorization: process.env.STORM_TOKEN ?? '' }
@@ -30,20 +36,22 @@ export const jerseyTideProvider: EventProvider = {
     }
     const json = (await res.json()) as { data?: TideExtreme[]; extremes?: TideExtreme[] };
     const list = json.data ?? json.extremes ?? [];
-    return list.map((ex): ICalEventData => {
-      const startUtc = new Date(ex.time);
-      const startLocal = toZonedTime(startUtc, TIMEZONE);
-      const endLocal = addMinutes(startLocal, 1);
-      const summary = ex.type === 'low' ? 'Low Tide' : 'High Tide';
-      return {
-        id: `tide-${startUtc.toISOString()}`,
-        summary,
-        start: startLocal,
-        end: endLocal,
-        description: `Height: ${ex.height} m`,
-        location: 'St Helier, Jersey',
-        timezone: TIMEZONE
-      };
-    });
+    return list
+      .map((ex): ICalEventData => {
+        const startUtc = new Date(ex.time);
+        const evStartLocal = toZonedTime(startUtc, TIMEZONE);
+        const evEndLocal = addMinutes(evStartLocal, 1);
+        const summary = ex.type === 'low' ? 'Low Tide' : 'High Tide';
+        return {
+          id: `tide-${startUtc.toISOString()}`,
+          summary,
+          start: evStartLocal,
+          end: evEndLocal,
+          description: `Height: ${ex.height} m`,
+          location: 'St Helier, Jersey',
+          timezone: TIMEZONE
+        };
+      })
+      .filter((ev) => ev.start >= startLocal && ev.start < endLocal);
   }
 };
