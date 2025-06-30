@@ -9,12 +9,14 @@ const program = new Command()
   .option("-p, --provider <name>", "event source", "dummy")
   .option("-o, --out <file>", "output path")
   .option("-d, --days <num>", "number of days", "7")
+  .option("-n, --nuke", "ignore existing calendar and recreate", false)
   .parse(process.argv);
 
-const { provider, out, days } = program.opts() as {
+const { provider, out, days, nuke } = program.opts() as {
   provider: string;
   out?: string;
   days: string;
+  nuke: boolean;
 };
 const nDays = parseInt(days, 10);
 const outFile = out ?? `${provider}.ics`;
@@ -22,12 +24,12 @@ const outFile = out ?? `${provider}.ics`;
 (async () => {
   try {
     const eventProvider = loadProvider(provider);
-    const existing = loadCalendar(outFile);
+    const existing = nuke ? [] : loadCalendar(outFile);
     const events = await eventProvider.getEvents(nDays);
     const seen = new Set(existing.map((e) => e.id));
     const fresh = events.filter((e) => !seen.has(e.id));
-    const all = [...existing, ...fresh];
-    writeFileSync(outFile, buildCalendar(all, "Europe/Jersey"));
+    const all = nuke ? fresh : [...existing, ...fresh];
+    writeFileSync(outFile, buildCalendar(all, "Europe/Jersey", provider));
     console.log(`📅  added ${fresh.length} new events → ${outFile}`);
   } catch (error) {
     console.error(`❌ Failed to generate calendar: ${error}`);
