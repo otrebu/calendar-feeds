@@ -15,11 +15,12 @@
   "packageManager": "pnpm@9.0.0",
   "dependencies": {
     "commander": "^14.0.0",
-    "ical-generator": "^9.0.0",
-    "node-fetch": "^3.3.2",
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.0.0",
-    "node-ical": "^0.20.1"
+    "ical-generator": "^9.0.0",
+    "node-fetch": "^3.3.2",
+    "node-ical": "^0.20.1",
+    "pino": "^9.7.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.6",

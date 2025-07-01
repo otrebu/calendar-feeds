@@ -29,10 +29,10 @@ jobs:
         env:
           STORM_TOKEN: ${{ secrets.STORM_TOKEN }}
 
-      - name: Commit calendar
+      - name: Commit calendar and logs
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tides.ics
+          git add tides.ics logs
           git commit -m "chore: update calendar" || echo "no changes"
           git push
