@@ -2,7 +2,10 @@ import fetch from 'node-fetch';
 import { addDays, addMinutes, startOfDay } from 'date-fns';
 import { toZonedTime, fromZonedTime } from 'date-fns-tz';
 import { ICalEventData } from 'ical-generator';
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { EventProvider } from './types';
+import { logger, logDir } from '../logger';
 
 const LAT = 49.18;
 const LNG = -2.11;
@@ -31,6 +34,7 @@ export const jerseyTideProvider: EventProvider = {
       `https://api.stormglass.io/v2/tide/extremes/point?lat=${LAT}&lng=${LNG}&start=${start.toISOString()}&end=${end.toISOString()}`;
     if (DATUM) url += `&datum=${encodeURIComponent(DATUM)}`;
 
+    logger.info({ url }, 'fetching tides');
     const res = await fetch(url, {
       headers: { Authorization: process.env.STORM_TOKEN ?? '' }
     });
@@ -39,8 +43,10 @@ export const jerseyTideProvider: EventProvider = {
       throw new Error(`StormGlass request failed: ${res.status} ${text}`);
     }
     const json = (await res.json()) as { data?: TideExtreme[]; extremes?: TideExtreme[] };
+    writeFileSync(join(logDir, 'tides-response.json'), JSON.stringify(json, null, 2));
     const list = json.data ?? json.extremes ?? [];
-    return list
+    logger.debug({ count: list.length }, 'received tide extremes');
+    const events = list
       .map((ex): ICalEventData => {
         const startUtc = new Date(ex.time);
         const evStartLocal = toZonedTime(startUtc, TIMEZONE);
@@ -58,5 +64,7 @@ export const jerseyTideProvider: EventProvider = {
         };
       })
       .filter((ev) => ev.start >= startLocal && ev.start < endLocal);
+    logger.info({ events: events.length }, 'tide events parsed');
+    return events;
   }
 };
