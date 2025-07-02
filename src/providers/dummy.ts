@@ -1,6 +1,13 @@
 import { EventProvider } from "./types";
 
+/**
+ * Simple provider returning a single hard-coded event.
+ */
 export const dummyProvider: EventProvider = {
+  /**
+   * Return events for the given range. The dummy provider ignores the range
+   * and always returns the same event.
+   */
   async getEvents(_days?: number) {
     return [
       {
