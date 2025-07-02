@@ -22,8 +22,16 @@ interface TideExtreme {
   height: number;
 }
 
+/**
+ * Fetch tide extremes from the Storm Glass API and convert them to calendar events.
+ */
 export const jerseyTideProvider: EventProvider = {
-  async getEvents(days = 7): Promise<ICalEventData[]> {
+  /**
+   * Fetch events for the next `days` days.
+   *
+   * Each day contains four tide times aligned to local midnight.
+   */
+  async getEvents(days = 10): Promise<ICalEventData[]> {
     // Align range to full local days so that each day contains four tide times
     const nowLocal = toZonedTime(new Date(), TIMEZONE);
     const startLocal = startOfDay(nowLocal);
