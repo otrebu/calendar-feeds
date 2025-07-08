@@ -6,6 +6,8 @@ export default defineConfig({
       reporter: ['text', 'json', 'json-summary', 'html'],
       include: ['src/**/*'],
       exclude: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
+      reportsDirectory: './coverage',
+      reportOnFailure: true,
       thresholds: {
         global: {
           branches: 80,

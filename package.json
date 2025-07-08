@@ -8,7 +8,7 @@
     "build": "tsup src/cli.ts --format esm,cjs --dts",
     "generate": "node dist/cli.js",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage.enabled true"
   },
   "keywords": [],
   "author": "",
