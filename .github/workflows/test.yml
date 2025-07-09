@@ -41,5 +41,7 @@ jobs:
       - name: Test CLI (dry run)
         run: node dist/cli.js --provider dummy --days 7
 
-      - name: Report Coverage
-        if: always()        uses: davelosert/vitest-coverage-report-action@v2
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2        with:
+          json-summary-path: './coverage/coverage-summary.json'
+          json-final-path: './coverage/coverage-final.json'
