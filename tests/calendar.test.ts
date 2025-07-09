@@ -34,3 +34,81 @@ test("cli extends coverage to at least 34 days", () => {
   expect(fetch).toBeGreaterThanOrEqual(34);
   expect(fetch).toBeLessThanOrEqual(40);
 });
+
+test("buildCalendar with timezone", async () => {
+  const events = await dummyProvider.getEvents();
+  const text = buildCalendar(events, "Europe/London", "test-calendar");
+  expect(text).toContain("Europe/London");
+  expect(text).toContain("test-calendar");
+});
+
+test("buildCalendar without timezone", async () => {
+  const events = await dummyProvider.getEvents();
+  const text = buildCalendar(events);
+  expect(text).toContain("calendar");
+  expect(text).not.toContain("Europe/");
+});
+
+test("loadCalendar returns empty array for non-existent file", () => {
+  const events = loadCalendar("non-existent-file.ics");
+  expect(events).toEqual([]);
+});
+
+test("loadCalendar handles malformed ICS file", () => {
+  const malformedFile = "malformed.ics";
+  writeFileSync(malformedFile, "invalid ics content");
+  
+  const events = loadCalendar(malformedFile);
+  expect(events).toEqual([]);
+  
+  rmSync(malformedFile);
+});
+
+test("loadCalendar handles empty ICS file", () => {
+  const emptyFile = "empty.ics";
+  writeFileSync(emptyFile, "");
+  
+  const events = loadCalendar(emptyFile);
+  expect(events).toEqual([]);
+  
+  rmSync(emptyFile);
+});
+
+test("calculateFetchDays with no existing events", () => {
+  const { coverage, target, fetch } = calculateFetchDays(7, []);
+  expect(coverage).toBe(0);
+  expect(target).toBe(14); // MIN_COVERAGE
+  expect(fetch).toBe(14);
+});
+
+test("calculateFetchDays with existing events beyond max coverage", () => {
+  const now = new Date();
+  const existing = [
+    {
+      id: "x",
+      summary: "future",
+      start: now,
+      end: new Date(now.getTime() + 50 * 24 * 60 * 60 * 1000) // 50 days ahead
+    }
+  ];
+  const { coverage, target, fetch } = calculateFetchDays(7, existing);
+  expect(coverage).toBe(50);
+  expect(target).toBe(40); // MAX_COVERAGE
+  expect(fetch).toBe(40);
+});
+
+test("calculateFetchDays respects requested days when higher than target", () => {
+  const now = new Date();
+  const existing = [
+    {
+      id: "x",
+      summary: "future",
+      start: now,
+      end: new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000)
+    }
+  ];
+  const { coverage, target, fetch } = calculateFetchDays(30, existing);
+  expect(coverage).toBe(10);
+  expect(target).toBe(24); // coverage + MIN_COVERAGE
+  expect(fetch).toBe(30); // requested days is higher
+});

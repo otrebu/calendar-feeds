@@ -2,8 +2,7 @@
 import { Command } from "commander";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { differenceInCalendarDays } from "date-fns";
+import { differenceInCalendarDays, isDate, toDate } from "date-fns";
 import { ICalEventData } from "ical-generator";
 import { buildCalendar, loadCalendar } from "./calendar";
 import { loadProvider } from "./providers";
@@ -11,6 +10,7 @@ import { logger, logDir } from "./logger";
 
 export const MIN_COVERAGE = 14;
 export const MAX_COVERAGE = 40;
+
 
 export function calculateFetchDays(
   nDays: number,
@@ -20,7 +20,16 @@ export function calculateFetchDays(
   const last = existing.reduce(
     (max, ev) => {
       const end = ev.end ?? ev.start;
-      return end > max ? end : max;
+      let endDate: Date;
+      if (isDate(end)) {
+        endDate = end;
+      } else if (typeof end === 'string' || typeof end === 'number') {
+        endDate = toDate(end);
+      } else {
+        // Handle other date-like objects by converting to string first
+        endDate = toDate(end.toString());
+      }
+      return endDate > max ? endDate : max;
     },
     now
   );
@@ -76,6 +85,6 @@ export async function run(): Promise<void> {
   }
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (require.main === module) {
   run();
 }
