@@ -29,7 +29,10 @@ import { writeFileSync } from 'node:fs';
 const mockFetch = fetch as any;
 const mockWriteFileSync = writeFileSync as any;
 
+
 beforeEach(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date("2025-07-08T00:00:00Z"));
   vi.clearAllMocks();
   // Clear environment variables
   delete process.env.STORM_TOKEN;
@@ -37,6 +40,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  vi.useRealTimers();
   vi.resetAllMocks();
 });
 
