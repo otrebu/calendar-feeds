@@ -1,5 +1,6 @@
+---
 name: Build & publish ICS
-on:
+'on':
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
@@ -24,15 +25,21 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test
-      - run: pnpm build && node dist/cli.js --provider tides --days 14
+      - run: pnpm ci:run -- --provider tides --days 14
         env:
           STORM_TOKEN: ${{ secrets.STORM_TOKEN }}
 
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2
+        if: always()
+        with:
+          json-summary-path: './coverage/coverage-summary.json'
+          json-final-path: './coverage/coverage-final.json'
       - name: Commit calendar and logs
         run: |
           git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
           git add tides.ics logs
           git commit -m "chore: update calendar" || echo "no changes"
           git push

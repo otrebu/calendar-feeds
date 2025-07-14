@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm build:*)",
+      "Bash(git add:*)",
+      "WebFetch(domain:vitest.dev)",
+      "Bash(git commit:*)"
+    ],
+    "deny": []
+  }
+}
