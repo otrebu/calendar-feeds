@@ -39,3 +39,7 @@
 {"level":30,"time":1751986072626,"pid":70211,"hostname":"JTM-YX6673X329","added":1,"file":"dummy.ics","msg":"calendar updated"}
 {"level":30,"time":1751986135243,"pid":70294,"hostname":"JTM-YX6673X329","provider":"dummy","days":7,"outFile":"dummy.ics","msg":"start generation"}
 {"level":30,"time":1751986135246,"pid":70294,"hostname":"JTM-YX6673X329","added":0,"file":"dummy.ics","msg":"calendar updated"}
+{"level":30,"time":1752521002192,"pid":2515,"hostname":"pkrvmq0rgcvqdmg","provider":"tides","days":14,"outFile":"tides.ics","msg":"start generation"}
+{"level":30,"time":1752521002206,"pid":2515,"hostname":"pkrvmq0rgcvqdmg","url":"https://api.stormglass.io/v2/tide/extremes/point?lat=49.18&lng=-2.11&start=2025-07-13T23:00:00.000Z&end=2025-07-30T23:00:00.000Z","msg":"fetching tides"}
+{"level":30,"time":1752521002856,"pid":2515,"hostname":"pkrvmq0rgcvqdmg","events":38,"msg":"tide events parsed"}
+{"level":30,"time":1752521002871,"pid":2515,"hostname":"pkrvmq0rgcvqdmg","added":23,"file":"tides.ics","msg":"calendar updated"}
