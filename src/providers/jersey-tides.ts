@@ -51,8 +51,9 @@ export const jerseyTideProvider: EventProvider = {
         const startUtc = new Date(ex.time);
         const evStartLocal = toZonedTime(startUtc, TIMEZONE);
         const evEndLocal = addMinutes(evStartLocal, 1);
-        const summary = ex.type === 'low' ? 'Low Tide' : 'High Tide';
         const height = ex.height + OFFSET;
+        const prefix = ex.type === 'low' ? 'Low Tide' : 'High Tide';
+        const summary = `${prefix} ${height.toFixed(1)} m`;
         return {
           id: `tide-${startUtc.toISOString()}`,
           summary,
