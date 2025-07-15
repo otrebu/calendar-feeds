@@ -20,7 +20,7 @@ test("loadCalendar parses existing events", async () => {
   rmSync(file);
 });
 
-test("cli extends coverage to at least 34 days", () => {
+test("cli skips fetch when coverage already sufficient", () => {
   const now = new Date();
   const existing = [
     {
@@ -31,8 +31,7 @@ test("cli extends coverage to at least 34 days", () => {
     }
   ];
   const { fetch } = calculateFetchDays(7, existing);
-  expect(fetch).toBeGreaterThanOrEqual(34);
-  expect(fetch).toBeLessThanOrEqual(40);
+  expect(fetch).toBe(0);
 });
 
 test("buildCalendar with timezone", async () => {
@@ -93,8 +92,8 @@ test("calculateFetchDays with existing events beyond max coverage", () => {
   ];
   const { coverage, target, fetch } = calculateFetchDays(7, existing);
   expect(coverage).toBe(50);
-  expect(target).toBe(40); // MAX_COVERAGE
-  expect(fetch).toBe(40);
+  expect(target).toBe(14); // MIN_COVERAGE since nDays < MIN_COVERAGE
+  expect(fetch).toBe(0);
 });
 
 test("calculateFetchDays respects requested days when higher than target", () => {
@@ -109,6 +108,6 @@ test("calculateFetchDays respects requested days when higher than target", () =>
   ];
   const { coverage, target, fetch } = calculateFetchDays(30, existing);
   expect(coverage).toBe(10);
-  expect(target).toBe(24); // coverage + MIN_COVERAGE
-  expect(fetch).toBe(30); // requested days is higher
+  expect(target).toBe(30);
+  expect(fetch).toBe(20);
 });
