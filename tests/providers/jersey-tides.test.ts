@@ -89,7 +89,7 @@ test("jersey tide provider fetches and processes tide data", async () => {
   expect(events).toHaveLength(3); // Only events within local day boundary
   expect(events[0]).toMatchObject({
     id: "tide-2025-07-08T06:00:00.000Z",
-    summary: "Low Tide",
+    summary: "Low Tide 7.2 m",
     description: "Height: 7.23 m", // 1.2 + 6.03 offset
     location: "St Helier, Jersey"
   });
@@ -196,7 +196,7 @@ test("jersey tide provider filters events to local day boundaries", async () => 
   
   // Should only include events within the local day boundary
   expect(events.length).toBeGreaterThanOrEqual(1);
-  expect(events.some(e => e.summary === "High Tide")).toBe(true);
+  expect(events.some(e => e.summary.startsWith("High Tide"))).toBe(true);
 });
 
 test("jersey tide provider writes response to log file", async () => {
@@ -235,7 +235,7 @@ test("jersey tide provider handles alternative response format", async () => {
   const events = await jerseyTideProvider.getEvents(1);
   
   expect(events).toHaveLength(1);
-  expect(events[0].summary).toBe("High Tide");
+  expect(events[0].summary).toBe("High Tide 9.5 m");
 });
 
 test("jersey tide provider creates correct event structure", async () => {
@@ -256,7 +256,7 @@ test("jersey tide provider creates correct event structure", async () => {
   const event = events[0];
   
   expect(event.id).toBe("tide-2025-07-08T12:00:00.000Z");
-  expect(event.summary).toBe("High Tide");
+  expect(event.summary).toBe("High Tide 10.0 m");
   expect(parseFloat(event.description!.match(/([0-9.]+) m/)?.[1] || "0")).toBeCloseTo(10.03, 2);
   expect(event.location).toBe("St Helier, Jersey");
   expect(event.timezone).toBe("Europe/Jersey");
