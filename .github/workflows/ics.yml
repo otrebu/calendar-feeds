@@ -26,7 +26,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - run: node dist/cli.js --provider tides --days 14
+      - run: node dist/cli.js --provider tides --days 30
         env:
           STORM_TOKEN: ${{ secrets.STORM_TOKEN }}
       - name: Commit calendar and logs

@@ -15,7 +15,7 @@ export const MAX_COVERAGE = 40;
 export function calculateFetchDays(
   nDays: number,
   existing: ICalEventData[],
-): { coverage: number; target: number; fetch: number } {
+): { coverage: number; target: number; fetch: number; offset: number } {
   const now = new Date();
   const last = existing.reduce(
     (max, ev) => {
@@ -34,9 +34,10 @@ export function calculateFetchDays(
     now
   );
   const coverage = Math.max(0, differenceInCalendarDays(last, now));
-  const target = Math.min(coverage + MIN_COVERAGE, MAX_COVERAGE);
-  const fetch = Math.max(nDays, target);
-  return { coverage, target, fetch };
+  const target = Math.min(Math.max(nDays, MIN_COVERAGE), MAX_COVERAGE);
+  const fetch = coverage >= target ? 0 : target - coverage;
+  const offset = coverage;
+  return { coverage, target, fetch, offset };
 }
 
 const program = new Command()
@@ -61,13 +62,13 @@ export async function run(): Promise<void> {
     logger.info({ provider, days: nDays, outFile }, 'start generation');
     const eventProvider = loadProvider(provider);
     const existing = nuke ? [] : loadCalendar(outFile);
-    const { coverage, target, fetch } = calculateFetchDays(nDays, existing);
+    const { coverage, target, fetch, offset } = calculateFetchDays(nDays, existing);
     logger.debug(
-      { existing: existing.length, coverage, target, fetch },
+      { existing: existing.length, coverage, target, fetch, offset },
       'loaded existing events'
     );
-    const events = await eventProvider.getEvents(fetch);
-    logger.debug({ events: events.length, fetch }, 'fetched events');
+    const events = fetch > 0 ? await eventProvider.getEvents(fetch, offset) : [];
+    logger.debug({ events: events.length, fetch, offset }, 'fetched events');
     writeFileSync(
       join(logDir, `${provider}-events.json`),
       JSON.stringify(events, null, 2)

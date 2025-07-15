@@ -208,10 +208,10 @@ test("jersey tide provider writes response to log file", async () => {
   });
 
   await jerseyTideProvider.getEvents(1);
-  
+
   expect(mockWriteFileSync).toHaveBeenCalledWith(
     "/tmp/test-logs/tides-response.json",
-    JSON.stringify(mockTideResponse, null, 2)
+    JSON.stringify(mockTideResponse.data, null, 2)
   );
 });
 
@@ -263,4 +263,26 @@ test("jersey tide provider creates correct event structure", async () => {
   expect(event.start).toBeInstanceOf(Date);
   expect(event.end).toBeInstanceOf(Date);
   expect(event.end! > event.start).toBe(true);
+});
+
+test("jersey tide provider fetches data in chunks when range is large", async () => {
+  process.env.STORM_TOKEN = "test-token";
+  mockFetch.mockResolvedValue({ ok: true, json: async () => ({ data: [] }) });
+
+  await jerseyTideProvider.getEvents(25);
+
+  expect(mockFetch).toHaveBeenCalledTimes(3);
+});
+
+test("jersey tide provider applies offset to start date", async () => {
+  process.env.STORM_TOKEN = "test-token";
+  mockFetch.mockResolvedValueOnce({ ok: true, json: async () => ({ data: [] }) });
+
+  await jerseyTideProvider.getEvents(1, 5);
+
+  const callArgs = mockFetch.mock.calls[0][0] as string;
+  const url = new URL(callArgs);
+  const start = url.searchParams.get("start");
+  expect(start).not.toBeNull();
+  expect(start).toBe("2025-07-12T23:00:00.000Z");
 });

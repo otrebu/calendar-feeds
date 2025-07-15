@@ -72,18 +72,20 @@ test("calculateFetchDays with existing events", () => {
   ];
   
   const result = calculateFetchDays(7, existing);
-  
+
   expect(result.coverage).toBe(10);
-  expect(result.target).toBe(24); // coverage + MIN_COVERAGE
-  expect(result.fetch).toBe(24);
+  expect(result.target).toBe(14); // MIN_COVERAGE
+  expect(result.fetch).toBe(4);
+  expect(result.offset).toBe(10);
 });
 
 test("calculateFetchDays with no existing events", () => {
   const result = calculateFetchDays(7, []);
-  
+
   expect(result.coverage).toBe(0);
   expect(result.target).toBe(MIN_COVERAGE);
   expect(result.fetch).toBe(MIN_COVERAGE);
+  expect(result.offset).toBe(0);
 });
 
 test("calculateFetchDays respects MAX_COVERAGE", () => {
@@ -98,10 +100,11 @@ test("calculateFetchDays respects MAX_COVERAGE", () => {
   ];
   
   const result = calculateFetchDays(7, existing);
-  
+
   expect(result.coverage).toBe(50);
-  expect(result.target).toBe(MAX_COVERAGE);
-  expect(result.fetch).toBe(MAX_COVERAGE);
+  expect(result.target).toBe(MIN_COVERAGE);
+  expect(result.fetch).toBe(0);
+  expect(result.offset).toBe(50);
 });
 
 test("calculateFetchDays uses requested days when higher than target", () => {
@@ -116,10 +119,11 @@ test("calculateFetchDays uses requested days when higher than target", () => {
   ];
   
   const result = calculateFetchDays(30, existing);
-  
+
   expect(result.coverage).toBe(5);
-  expect(result.target).toBe(19); // coverage + MIN_COVERAGE
-  expect(result.fetch).toBe(30); // requested days is higher
+  expect(result.target).toBe(30);
+  expect(result.fetch).toBe(25);
+  expect(result.offset).toBe(5);
 });
 
 test("calculateFetchDays handles events with only start date", () => {
@@ -134,10 +138,11 @@ test("calculateFetchDays handles events with only start date", () => {
   ];
   
   const result = calculateFetchDays(7, existing);
-  
+
   expect(result.coverage).toBe(5);
-  expect(result.target).toBe(19);
-  expect(result.fetch).toBe(19);
+  expect(result.target).toBe(14);
+  expect(result.fetch).toBe(9);
+  expect(result.offset).toBe(5);
 });
 
 test("run function executes successfully", async () => {
@@ -156,9 +161,9 @@ test("run function executes successfully", async () => {
   mockLoadCalendar.mockReturnValue([]);
   
   await run();
-  
+
   expect(mockLoadProvider).toHaveBeenCalledWith("dummy");
-  expect(mockProvider.getEvents).toHaveBeenCalled();
+  expect(mockProvider.getEvents).toHaveBeenCalledWith(MIN_COVERAGE, 0);
   expect(mockBuildCalendar).toHaveBeenCalled();
   expect(mockWriteFileSync).toHaveBeenCalledWith(
     "dummy.ics",

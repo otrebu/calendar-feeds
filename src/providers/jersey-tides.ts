@@ -23,30 +23,39 @@ interface TideExtreme {
 }
 
 export const jerseyTideProvider: EventProvider = {
-  async getEvents(days = 7): Promise<ICalEventData[]> {
+  async getEvents(days = 7, offset = 0): Promise<ICalEventData[]> {
     // Align range to full local days so that each day contains four tide times
     const nowLocal = toZonedTime(new Date(), TIMEZONE);
-    const startLocal = startOfDay(nowLocal);
+    const startLocal = startOfDay(addDays(nowLocal, offset));
     const endLocal = addDays(startLocal, days);
-    const start = fromZonedTime(startLocal, TIMEZONE);
-    const end = fromZonedTime(endLocal, TIMEZONE);
-    let url =
-      `https://api.stormglass.io/v2/tide/extremes/point?lat=${LAT}&lng=${LNG}&start=${start.toISOString()}&end=${end.toISOString()}`;
-    if (DATUM) url += `&datum=${encodeURIComponent(DATUM)}`;
+    const CHUNK = 10;
+    const extremes: TideExtreme[] = [];
 
-    logger.info({ url }, 'fetching tides');
-    const res = await fetch(url, {
-      headers: { Authorization: process.env.STORM_TOKEN ?? '' }
-    });
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`StormGlass request failed: ${res.status} ${text}`);
+    for (let offsetDays = 0; offsetDays < days; offsetDays += CHUNK) {
+      const chunkStartLocal = addDays(startLocal, offsetDays);
+      const chunkEndLocal = addDays(chunkStartLocal, Math.min(CHUNK, days - offsetDays));
+      const start = fromZonedTime(chunkStartLocal, TIMEZONE);
+      const end = fromZonedTime(chunkEndLocal, TIMEZONE);
+
+      let url =
+        `https://api.stormglass.io/v2/tide/extremes/point?lat=${LAT}&lng=${LNG}&start=${start.toISOString()}&end=${end.toISOString()}`;
+      if (DATUM) url += `&datum=${encodeURIComponent(DATUM)}`;
+
+      logger.info({ url }, 'fetching tides');
+      const res = await fetch(url, {
+        headers: { Authorization: process.env.STORM_TOKEN ?? '' }
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`StormGlass request failed: ${res.status} ${text}`);
+      }
+      const json = (await res.json()) as { data?: TideExtreme[]; extremes?: TideExtreme[] };
+      extremes.push(...(json.data ?? json.extremes ?? []));
     }
-    const json = (await res.json()) as { data?: TideExtreme[]; extremes?: TideExtreme[] };
-    writeFileSync(join(logDir, 'tides-response.json'), JSON.stringify(json, null, 2));
-    const list = json.data ?? json.extremes ?? [];
-    logger.debug({ count: list.length }, 'received tide extremes');
-    const events = list
+
+    writeFileSync(join(logDir, 'tides-response.json'), JSON.stringify(extremes, null, 2));
+    logger.debug({ count: extremes.length }, 'received tide extremes');
+    const events = extremes
       .map((ex): ICalEventData => {
         const startUtc = new Date(ex.time);
         const evStartLocal = toZonedTime(startUtc, TIMEZONE);
@@ -65,6 +74,7 @@ export const jerseyTideProvider: EventProvider = {
         };
       })
       .filter((ev) => ev.start >= startLocal && ev.start < endLocal);
+    events.sort((a, b) => (a.start as Date).getTime() - (b.start as Date).getTime());
     logger.info({ events: events.length }, 'tide events parsed');
     return events;
   }
