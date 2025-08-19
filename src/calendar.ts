@@ -20,13 +20,18 @@ export function loadCalendar(path: string): ICalEventData[] {
   const events: ICalEventData[] = [];
   for (const item of Object.values(parsed)) {
     if (item.type === "VEVENT") {
+      // Extract timezone from the start date if it exists
+      const startDate = item.start as Date;
+      const timezone = (startDate as any)?.tz || undefined;
+      
       events.push({
         id: item.uid as string,
         summary: item.summary as string,
-        start: item.start as Date,
+        start: startDate,
         end: item.end as Date,
         description: item.description as string,
         location: item.location as string,
+        timezone: timezone,
       });
     }
   }
