@@ -525,3 +525,7 @@
 {"level":30,"time":1762658622648,"pid":2188,"hostname":"runnervmw9dnm","url":"https://api.stormglass.io/v2/tide/extremes/point?lat=49.18&lng=-2.11&start=2025-12-07T00:00:00.000Z&end=2025-12-09T00:00:00.000Z","msg":"fetching tides"}
 {"level":30,"time":1762658623210,"pid":2188,"hostname":"runnervmw9dnm","events":8,"msg":"tide events parsed"}
 {"level":30,"time":1762658623275,"pid":2188,"hostname":"runnervmw9dnm","added":4,"file":"tides.ics","msg":"calendar updated"}
+{"level":30,"time":1762745308998,"pid":2185,"hostname":"runnervmw9dnm","provider":"tides","days":30,"outFile":"tides.ics","msg":"start generation"}
+{"level":30,"time":1762745309108,"pid":2185,"hostname":"runnervmw9dnm","url":"https://api.stormglass.io/v2/tide/extremes/point?lat=49.18&lng=-2.11&start=2025-12-08T00:00:00.000Z&end=2025-12-10T00:00:00.000Z","msg":"fetching tides"}
+{"level":30,"time":1762745309668,"pid":2185,"hostname":"runnervmw9dnm","events":8,"msg":"tide events parsed"}
+{"level":30,"time":1762745309733,"pid":2185,"hostname":"runnervmw9dnm","added":4,"file":"tides.ics","msg":"calendar updated"}
