@@ -1,46 +1,10 @@
 [
   {
-    "id": "tide-2025-12-23T02:40:00.000Z",
-    "summary": "Low Tide 2.7 m",
-    "start": "2025-12-23T02:40:00.000Z",
-    "end": "2025-12-23T02:41:00.000Z",
-    "description": "Height: 2.6777803782921974 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2025-12-23T08:14:00.000Z",
-    "summary": "High Tide 10.1 m",
-    "start": "2025-12-23T08:14:00.000Z",
-    "end": "2025-12-23T08:15:00.000Z",
-    "description": "Height: 10.070040769507518 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2025-12-23T15:02:00.000Z",
-    "summary": "Low Tide 2.4 m",
-    "start": "2025-12-23T15:02:00.000Z",
-    "end": "2025-12-23T15:03:00.000Z",
-    "description": "Height: 2.417981708424312 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2025-12-23T20:36:00.000Z",
-    "summary": "High Tide 9.8 m",
-    "start": "2025-12-23T20:36:00.000Z",
-    "end": "2025-12-23T20:37:00.000Z",
-    "description": "Height: 9.847461288321707 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
     "id": "tide-2025-12-24T03:18:00.000Z",
     "summary": "Low Tide 2.7 m",
     "start": "2025-12-24T03:18:00.000Z",
     "end": "2025-12-24T03:19:00.000Z",
-    "description": "Height: 2.7097926053639814 m",
+    "description": "Height: 2.709792636068403 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   },
@@ -49,7 +13,7 @@
     "summary": "High Tide 10.0 m",
     "start": "2025-12-24T08:52:00.000Z",
     "end": "2025-12-24T08:53:00.000Z",
-    "description": "Height: 10.040209808200789 m",
+    "description": "Height: 10.040209761435317 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   },
@@ -58,7 +22,7 @@
     "summary": "Low Tide 2.5 m",
     "start": "2025-12-24T15:42:00.000Z",
     "end": "2025-12-24T15:43:00.000Z",
-    "description": "Height: 2.4684491909729296 m",
+    "description": "Height: 2.4684492777205533 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   },
@@ -67,7 +31,43 @@
     "summary": "High Tide 9.8 m",
     "start": "2025-12-24T21:15:00.000Z",
     "end": "2025-12-24T21:16:00.000Z",
-    "description": "Height: 9.75007159652941 m",
+    "description": "Height: 9.750071499963463 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2025-12-25T03:58:00.000Z",
+    "summary": "Low Tide 2.8 m",
+    "start": "2025-12-25T03:58:00.000Z",
+    "end": "2025-12-25T03:59:00.000Z",
+    "description": "Height: 2.816088084096428 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2025-12-25T09:33:00.000Z",
+    "summary": "High Tide 9.9 m",
+    "start": "2025-12-25T09:33:00.000Z",
+    "end": "2025-12-25T09:34:00.000Z",
+    "description": "Height: 9.903455003866647 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2025-12-25T16:23:00.000Z",
+    "summary": "Low Tide 2.6 m",
+    "start": "2025-12-25T16:23:00.000Z",
+    "end": "2025-12-25T16:24:00.000Z",
+    "description": "Height: 2.6018031748871087 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2025-12-25T21:58:00.000Z",
+    "summary": "High Tide 9.6 m",
+    "start": "2025-12-25T21:58:00.000Z",
+    "end": "2025-12-25T21:59:00.000Z",
+    "description": "Height: 9.553900396150507 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   }
