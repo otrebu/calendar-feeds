@@ -1,37 +1,10 @@
 [
   {
-    "id": "tide-2026-03-12T05:58:00.000Z",
-    "summary": "Low Tide 4.7 m",
-    "start": "2026-03-12T05:58:00.000Z",
-    "end": "2026-03-12T05:59:00.000Z",
-    "description": "Height: 4.749385044917266 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2026-03-12T11:43:00.000Z",
-    "summary": "High Tide 7.2 m",
-    "start": "2026-03-12T11:43:00.000Z",
-    "end": "2026-03-12T11:44:00.000Z",
-    "description": "Height: 7.150462037079523 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2026-03-12T18:40:00.000Z",
-    "summary": "Low Tide 5.1 m",
-    "start": "2026-03-12T18:40:00.000Z",
-    "end": "2026-03-12T18:41:00.000Z",
-    "description": "Height: 5.082695901748988 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
     "id": "tide-2026-03-13T00:37:00.000Z",
     "summary": "High Tide 7.0 m",
     "start": "2026-03-13T00:37:00.000Z",
     "end": "2026-03-13T00:38:00.000Z",
-    "description": "Height: 7.00985849976438 m",
+    "description": "Height: 7.009858360362055 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   },
@@ -40,7 +13,7 @@
     "summary": "Low Tide 5.0 m",
     "start": "2026-03-13T07:48:00.000Z",
     "end": "2026-03-13T07:49:00.000Z",
-    "description": "Height: 5.036713196741359 m",
+    "description": "Height: 5.036713283025335 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   },
@@ -49,7 +22,7 @@
     "summary": "High Tide 6.9 m",
     "start": "2026-03-13T14:31:00.000Z",
     "end": "2026-03-13T14:32:00.000Z",
-    "description": "Height: 6.884874598987589 m",
+    "description": "Height: 6.8848745926137305 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   },
@@ -58,7 +31,43 @@
     "summary": "Low Tide 5.1 m",
     "start": "2026-03-13T20:48:00.000Z",
     "end": "2026-03-13T20:49:00.000Z",
-    "description": "Height: 5.103105490951238 m",
+    "description": "Height: 5.103105491942276 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2026-03-14T03:20:00.000Z",
+    "summary": "High Tide 7.2 m",
+    "start": "2026-03-14T03:20:00.000Z",
+    "end": "2026-03-14T03:21:00.000Z",
+    "description": "Height: 7.228233261170651 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2026-03-14T09:47:00.000Z",
+    "summary": "Low Tide 4.6 m",
+    "start": "2026-03-14T09:47:00.000Z",
+    "end": "2026-03-14T09:48:00.000Z",
+    "description": "Height: 4.62855081498586 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2026-03-14T16:05:00.000Z",
+    "summary": "High Tide 7.5 m",
+    "start": "2026-03-14T16:05:00.000Z",
+    "end": "2026-03-14T16:06:00.000Z",
+    "description": "Height: 7.536224629353057 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2026-03-14T22:24:00.000Z",
+    "summary": "Low Tide 4.5 m",
+    "start": "2026-03-14T22:24:00.000Z",
+    "end": "2026-03-14T22:25:00.000Z",
+    "description": "Height: 4.471747841535146 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   }
