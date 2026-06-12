@@ -1381,3 +1381,7 @@
 {"level":30,"time":1781152301997,"pid":2411,"hostname":"runnervm1li68","url":"https://api.stormglass.io/v2/tide/extremes/point?lat=49.18&lng=-2.11&start=2026-07-08T23:00:00.000Z&end=2026-07-10T23:00:00.000Z","msg":"fetching tides"}
 {"level":30,"time":1781152302708,"pid":2411,"hostname":"runnervm1li68","events":8,"msg":"tide events parsed"}
 {"level":30,"time":1781152302899,"pid":2411,"hostname":"runnervm1li68","added":4,"file":"tides.ics","msg":"calendar updated"}
+{"level":30,"time":1781238690645,"pid":2418,"hostname":"runnervm1li68","provider":"tides","days":30,"outFile":"tides.ics","msg":"start generation"}
+{"level":30,"time":1781238691186,"pid":2418,"hostname":"runnervm1li68","url":"https://api.stormglass.io/v2/tide/extremes/point?lat=49.18&lng=-2.11&start=2026-07-09T23:00:00.000Z&end=2026-07-11T23:00:00.000Z","msg":"fetching tides"}
+{"level":30,"time":1781238691812,"pid":2418,"hostname":"runnervm1li68","events":8,"msg":"tide events parsed"}
+{"level":30,"time":1781238691981,"pid":2418,"hostname":"runnervm1li68","added":4,"file":"tides.ics","msg":"calendar updated"}
