@@ -1,41 +1,5 @@
 [
   {
-    "id": "tide-2026-10-06T02:30:00.000Z",
-    "summary": "High Tide 8.2 m",
-    "start": "2026-10-06T03:30:00.000Z",
-    "end": "2026-10-06T03:31:00.000Z",
-    "description": "Height: 8.186534414204537 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2026-10-06T09:04:00.000Z",
-    "summary": "Low Tide 3.9 m",
-    "start": "2026-10-06T10:04:00.000Z",
-    "end": "2026-10-06T10:05:00.000Z",
-    "description": "Height: 3.8774583979268913 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2026-10-06T15:03:00.000Z",
-    "summary": "High Tide 8.8 m",
-    "start": "2026-10-06T16:03:00.000Z",
-    "end": "2026-10-06T16:04:00.000Z",
-    "description": "Height: 8.786098606911647 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
-    "id": "tide-2026-10-06T21:42:00.000Z",
-    "summary": "Low Tide 3.1 m",
-    "start": "2026-10-06T22:42:00.000Z",
-    "end": "2026-10-06T22:43:00.000Z",
-    "description": "Height: 3.0985307640550825 m",
-    "location": "St Helier, Jersey",
-    "timezone": "Europe/Jersey"
-  },
-  {
     "id": "tide-2026-10-07T03:42:00.000Z",
     "summary": "High Tide 9.0 m",
     "start": "2026-10-07T04:42:00.000Z",
@@ -68,6 +32,33 @@
     "start": "2026-10-07T23:41:00.000Z",
     "end": "2026-10-07T23:42:00.000Z",
     "description": "Height: 2.2648573223710793 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2026-10-08T04:34:00.000Z",
+    "summary": "High Tide 9.9 m",
+    "start": "2026-10-08T05:34:00.000Z",
+    "end": "2026-10-08T05:35:00.000Z",
+    "description": "Height: 9.890348792833755 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2026-10-08T11:05:00.000Z",
+    "summary": "Low Tide 2.2 m",
+    "start": "2026-10-08T12:05:00.000Z",
+    "end": "2026-10-08T12:06:00.000Z",
+    "description": "Height: 2.1922896886945047 m",
+    "location": "St Helier, Jersey",
+    "timezone": "Europe/Jersey"
+  },
+  {
+    "id": "tide-2026-10-08T16:53:00.000Z",
+    "summary": "High Tide 10.5 m",
+    "start": "2026-10-08T17:53:00.000Z",
+    "end": "2026-10-08T17:54:00.000Z",
+    "description": "Height: 10.469973625693955 m",
     "location": "St Helier, Jersey",
     "timezone": "Europe/Jersey"
   }
