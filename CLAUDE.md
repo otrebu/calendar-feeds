@@ -44,10 +44,10 @@ The application uses a plugin-based provider system located in `src/providers/`:
 - **Logger** (`logger.ts`): Structured logging with pino
 
 ### Smart Event Management
-The CLI implements intelligent event fetching to avoid redundant API calls:
+The CLI implements intelligent event fetching to avoid redundant calculations:
 - Calculates coverage based on existing events in the calendar
 - Maintains minimum coverage of 14 days, maximum of 40 days
-- Only fetches new events beyond existing coverage
+- Only computes new events beyond existing coverage
 - Merges new events with existing ones (unless `--nuke` is used)
 
 ### GitHub Actions Integration
@@ -55,21 +55,15 @@ The project includes automated calendar generation via `.github/workflows/ics.ym
 - Runs daily at 3 AM UTC
 - Builds project, runs tests, and generates tides calendar
 - Commits updated calendar and logs back to the repository
-- Uses `STORM_TOKEN` secret for Storm Glass API access
 
 ## Key Dependencies
 
+- **@neaps/tide-predictor**: Harmonic tide prediction
 - **ical-generator**: Creates ICS calendar files
 - **node-ical**: Parses existing ICS files
 - **commander**: CLI argument parsing
 - **pino**: Structured logging
 - **date-fns**: Date manipulation utilities
-- **node-fetch**: HTTP client for API calls
-
-## Environment Variables
-
-- `STORM_TOKEN`: Required for Storm Glass API access (tides provider)
-- `STORM_DATUM`: Optional datum parameter for tide height calculations (defaults to MSL)
 
 ## Testing
 
