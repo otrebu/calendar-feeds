@@ -18,11 +18,11 @@
   "license": "ISC",
   "packageManager": "pnpm@9.0.0",
   "dependencies": {
+    "@neaps/tide-predictor": "^0.1.1",
     "commander": "^14.0.0",
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.0.0",
     "ical-generator": "^9.0.0",
-    "node-fetch": "^3.3.2",
     "node-ical": "^0.20.1",
     "pino": "^9.7.0"
   },
